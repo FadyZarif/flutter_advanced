@@ -1,8 +1,9 @@
 # flutter_advanced
 
-A new Flutter project.
+ Flutter Advanced Project.
 
-## Getting Started
+## 🎨 System Design
+![steps for advanced](https://github.com/user-attachments/assets/57dc3eb4-6eb4-4a08-b467-1daf38c5a8e3)
 
 This project is a starting point for a Flutter application.
 
