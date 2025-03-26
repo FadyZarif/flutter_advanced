@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_advanced/core/helpers/extensions.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../routing/routes.dart';
 import '../theming/colors.dart';
 import '../theming/styles.dart';
 
@@ -36,7 +34,7 @@ class AppTextButton extends StatelessWidget {
           shape: WidgetStateProperty.all(RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(borderRadius?.r ?? 16.r))),
           backgroundColor:
-              WidgetStateProperty.all(backgroundColor ?? ColorsManger.mainBlue),
+              WidgetStateProperty.all(backgroundColor ?? ColorsManager.mainBlue),
           padding: WidgetStateProperty.all<EdgeInsets>(
             EdgeInsets.symmetric(
               horizontal: horizontalPadding?.w ?? 12.w,

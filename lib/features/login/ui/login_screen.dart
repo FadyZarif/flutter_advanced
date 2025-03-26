@@ -1,27 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_advanced/core/theming/colors.dart';
 import 'package:flutter_advanced/core/theming/styles.dart';
 import 'package:flutter_advanced/core/widgets/app_text_button.dart';
-import 'package:flutter_advanced/core/widgets/app_text_form_field.dart';
+import 'package:flutter_advanced/features/login/data/models/login_request_body_model.dart';
+import 'package:flutter_advanced/features/login/logic/login_cubit.dart';
+import 'package:flutter_advanced/features/login/ui/widgets/email_and_password.dart';
+import 'package:flutter_advanced/features/login/ui/widgets/login_bloc_listener.dart';
 import 'package:flutter_advanced/features/login/ui/widgets/or_sign_up_widget.dart';
 import 'package:flutter_advanced/features/login/ui/widgets/social_media_login_widget.dart';
 import 'package:flutter_advanced/features/login/ui/widgets/terms_and_conditions_text.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../core/helpers/spacing.dart';
 import 'widgets/already_have_account_text.dart';
 
-class LoginScreen extends StatefulWidget {
+class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
-  @override
-  State<LoginScreen> createState() => _LoginScreenState();
-}
 
-class _LoginScreenState extends State<LoginScreen> {
-  final _formKey = GlobalKey<FormState>();
-  bool _obscureText = true;
 
   @override
   Widget build(BuildContext context) {
@@ -29,8 +25,9 @@ class _LoginScreenState extends State<LoginScreen> {
       body: SafeArea(
         child: SingleChildScrollView(
           padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 30.h),
-          child:
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
             Text(
               'Welcome Back',
               style: TextStyles.font24BlueBold,
@@ -41,51 +38,42 @@ class _LoginScreenState extends State<LoginScreen> {
               style: TextStyles.font14GreyRegular,
             ),
             verticalSpace(36),
-            Form(
-                key: _formKey,
-                child: Column(children: [
-                  const AppTextFormField(hintText: 'Email'),
-                  verticalSpace(16),
-                  AppTextFormField(
-                    hintText: 'Password',
-                    obscureText: _obscureText,
-                    suffixIcon: GestureDetector(
-                      onTap: (){
-                        setState(() {
-                          _obscureText = !_obscureText;
-                        });
-                      },
-                      child: _obscureText
-                          ?const Icon(Icons.visibility_off)
-                          : const Icon(Icons.visibility) ,
-                    ),
-                  ),
-                  verticalSpace(16),
-                  Align(
-                    alignment: AlignmentDirectional.centerEnd,
-                    child: Text(
-                      'Forgot Password?',
-                      style: TextStyles.font13BlueRegular,
-                    ),
-                  ),
-                  verticalSpace(32),
-                  const AppTextButton(buttonText: 'Login'),
-                  verticalSpace(46),
-                  const OrSignUpWidget(),
-                  verticalSpace(32),
-                  const SocialMediaLoginWidget(),
-                  verticalSpace(32),
-                  const TermsAndConditionsText(),
-                  verticalSpace(24),
-                  const AlreadyHaveAccountText(),
-
-
-
-
-                ])),
+            const EmailAndPassword(),
+            verticalSpace(16),
+            Align(
+              alignment: AlignmentDirectional.centerEnd,
+              child: Text(
+                'Forgot Password?',
+                style: TextStyles.font13BlueRegular,
+              ),
+            ),
+            verticalSpace(32),
+            AppTextButton(
+              buttonText: 'Login',
+              onPressed: () => validateThenDoLogin(context),
+            ),
+            verticalSpace(46),
+            const OrSignUpWidget(),
+            verticalSpace(32),
+            const SocialMediaLoginWidget(),
+            verticalSpace(32),
+            const TermsAndConditionsText(),
+            verticalSpace(24),
+            const AlreadyHaveAccountText(),
+            const LoginBlocListener(),
           ]),
         ),
       ),
     );
+  }
+
+  void validateThenDoLogin(BuildContext context) {
+    LoginCubit cubit = context.read<LoginCubit>();
+    if (cubit.formKey.currentState!.validate()) {
+      cubit.emitLoginStates(
+          LoginRequestBodyModel(
+              email: cubit.emailController.text,
+              password: cubit.passwordController.text));
+    }
   }
 }

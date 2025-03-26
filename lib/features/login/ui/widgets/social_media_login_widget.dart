@@ -23,12 +23,12 @@ class SocialMediaLoginWidget extends StatelessWidget {
 
 class _SocialMediaButton extends StatelessWidget {
   final String svgPath;
-  const _SocialMediaButton({super.key, required this.svgPath});
+  const _SocialMediaButton({required this.svgPath});
 
   @override
   Widget build(BuildContext context) {
     return CircleAvatar(
-      backgroundColor: ColorsManger.lighterGrey,
+      backgroundColor: ColorsManager.lighterGrey,
       radius: 25.r,
       child: SvgPicture.asset(svgPath,width: 24.w,),
     );

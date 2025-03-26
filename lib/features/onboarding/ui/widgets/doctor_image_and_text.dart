@@ -22,7 +22,7 @@ class DoctorImageAndText extends StatelessWidget {
                 Colors.white.withOpacity(0.0),
                 Colors.white.withOpacity(1.0),
               ],
-              stops: [0.6, 0.86],
+              stops: const [0.6, 0.86],
             ),
           ),
           child: Image.asset('assets/images/onboarding_doctor.png'),

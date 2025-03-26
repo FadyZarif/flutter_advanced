@@ -14,7 +14,7 @@ class OrSignUpWidget extends StatelessWidget {
         Expanded(
           child: Container(
             height: 1,
-            color: ColorsManger.lightGrey,
+            color: ColorsManager.lightGrey,
           ),
         ),
         horizontalSpace(10),
@@ -26,7 +26,7 @@ class OrSignUpWidget extends StatelessWidget {
         Expanded(
           child: Container(
             height: 1,
-            color: ColorsManger.lightGrey,
+            color: ColorsManager.lightGrey,
           ),
         ),
       ],
