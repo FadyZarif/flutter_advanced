@@ -51,7 +51,7 @@ dependencies:
   retrofit: ^4.4.2
   retrofit_generator: ^9.1.7
   #localization
-  #easy_localization: ^3.0.7
+  easy_localization: ^3.0.7
   #splash screen
   flutter_native_splash: ^2.4.4
   #svg
